@@ -1,0 +1,205 @@
+:root{
+    --bg: #1c0f14;
+    --bg-soft: #26141a;
+    --card: #2c1720;
+    --ink: #f6e9e4;
+    --ink-dim: #cbb0ac;
+    --rose: #e9a8b8;
+    --wine: #8c2739;
+    --wine-bright: #c23a52;
+    --matcha: #9caf6b;
+    --gold: #d9b876;
+    --hairline: rgba(246,233,228,0.14);
+    --serif: 'Fraunces', serif;
+    --sans: 'Work Sans', sans-serif;
+    --hand: 'Caveat', cursive;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  /* ambient texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 0%, rgba(194,58,82,0.16), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 90% 15%, rgba(156,175,107,0.08), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(233,168,184,0.07), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* progress / counter bar */
+  .tally{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; gap:14px;
+    padding:14px 22px;
+    background:rgba(28,15,20,0.72);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .tally-track{
+    flex:1; height:2px; background:rgba(246,233,228,0.14); position:relative; overflow:hidden; border-radius:2px;
+  }
+  .tally-fill{
+    position:absolute; left:0; top:0; bottom:0; width:0%;
+    background: linear-gradient(90deg, var(--wine-bright), var(--rose));
+    transition: width 0.08s linear;
+  }
+  .tally-count{
+    font-family: var(--serif); font-size:0.95rem; letter-spacing:0.04em;
+    white-space:nowrap; color:var(--rose); font-variant-numeric: tabular-nums;
+    min-width:96px; text-align:right;
+  }
+  .tally-count b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; z-index:1;
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 100px 24px 60px;
+  }
+  .hero-eyebrow{
+    font-family:var(--hand); font-size:1.5rem; color:var(--matcha);
+    margin-bottom:6px; letter-spacing:0.02em;
+  }
+  .hero-number{
+    font-family:var(--serif); font-weight:700; font-style:italic;
+    font-size: clamp(5.5rem, 22vw, 13rem);
+    line-height:0.85;
+    background: linear-gradient(160deg, var(--rose) 0%, var(--wine-bright) 55%, var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    letter-spacing:-0.02em;
+  }
+  .hero-sub{
+    font-family:var(--serif); font-weight:500; font-size:clamp(1.4rem, 3.4vw, 2.1rem);
+    margin-top:4px; color:var(--ink);
+  }
+  .hero-tag{
+    margin-top:22px; max-width:480px; font-size:1.02rem; line-height:1.7; color:var(--ink-dim); font-weight:300;
+  }
+  .hero-scroll{
+    margin-top:56px; display:flex; flex-direction:column; align-items:center; gap:10px;
+    font-family:var(--hand); font-size:1.15rem; color:var(--ink-dim);
+    animation: float 2.4s ease-in-out infinite;
+  }
+  .hero-scroll svg{ width:16px; height:22px; opacity:0.7; }
+  @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(8px);} }
+
+  /* ---------- CHAPTERS ---------- */
+  main{ position:relative; z-index:1; max-width:760px; margin:0 auto; padding: 20px 24px 40px; }
+
+  .chapter{ padding-top: 86px; }
+  .chapter-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:30px;
+    border-bottom:1px solid var(--hairline); padding-bottom:18px;
+  }
+  .chapter-roman{
+    font-family:var(--serif); font-style:italic; font-weight:500; font-size:1.05rem;
+    color:var(--wine-bright); flex-shrink:0; min-width:34px;
+  }
+  .chapter-title{
+    font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,4vw,2rem);
+    color:var(--ink); letter-spacing:-0.01em;
+  }
+  .chapter-range{
+    margin-left:auto; font-family:var(--sans); font-size:0.78rem; color:var(--ink-dim);
+    white-space:nowrap; padding-top:6px;
+  }
+
+  .reason-list{ list-style:none; }
+  .reason{
+    display:flex; align-items:baseline; gap:16px;
+    padding:13px 4px;
+    border-bottom:1px solid var(--hairline);
+    opacity:0; transform:translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reason.in{ opacity:1; transform:translateY(0); }
+  .reason-num{
+    font-family:var(--sans); font-size:0.78rem; color:var(--wine-bright);
+    font-variant-numeric: tabular-nums; min-width:34px; flex-shrink:0; opacity:0.85;
+  }
+  .reason-text{ font-size:1.02rem; line-height:1.5; color:var(--ink-dim); font-weight:300; }
+  .reason-text b, .reason-text strong{ color:var(--ink); font-weight:500; }
+  .reason.accent .reason-text{ color:var(--ink); font-weight:400; }
+  .reason .quoteword{
+    font-family:var(--hand); color:var(--gold); font-size:1.2rem; font-weight:600;
+  }
+
+  /* ---------- FINALE ---------- */
+  .finale{
+    position:relative; z-index:1;
+    padding: 120px 24px 140px;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+  }
+  .finale-card{
+    max-width:560px; width:100%;
+    background: linear-gradient(165deg, var(--card), var(--bg-soft));
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding: 52px 36px;
+    position:relative;
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,0.6);
+  }
+  .finale-card::before{
+    content:"501";
+    position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+    font-family:var(--serif); font-style:italic; font-weight:700; font-size:1rem;
+    color:var(--bg); background:linear-gradient(120deg,var(--rose),var(--gold));
+    padding:6px 18px; border-radius:20px; letter-spacing:0.05em;
+  }
+  .finale-eyebrow{
+    font-family:var(--hand); font-size:1.3rem; color:var(--matcha); margin-bottom:10px;
+  }
+  .finale-num{
+    font-family:var(--sans); font-size:0.72rem; letter-spacing:0.18em; color:var(--wine-bright);
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  .finale-500{
+    font-family:var(--serif); font-style:italic; font-size:1.15rem; color:var(--ink-dim);
+    padding-bottom:22px; margin-bottom:22px; border-bottom:1px solid var(--hairline);
+  }
+  .finale-501{
+    font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem, 4vw, 2rem);
+    line-height:1.35; color:var(--ink);
+  }
+  .finale-sign{
+    margin-top:30px; font-family:var(--hand); font-size:1.6rem; color:var(--rose);
+  }
+  .finale-note{
+    margin-top:36px; font-size:0.85rem; color:var(--ink-dim); max-width:420px; line-height:1.6;
+  }
+
+  footer{
+    position:relative; z-index:1;
+    text-align:center; padding:30px 24px 50px;
+    font-family:var(--sans); font-size:0.75rem; color:rgba(246,233,228,0.35);
+    letter-spacing:0.04em;
+  }
+
+  ::selection{ background:var(--wine-bright); color:var(--ink); }
+
+  @media (max-width:520px){
+    .tally{ padding:12px 16px; gap:10px; }
+    .tally-count{ font-size:0.8rem; min-width:80px; }
+    .chapter{ padding-top:60px; }
+    .finale-card{ padding:40px 22px; }
+  }
